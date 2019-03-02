@@ -1,0 +1,15 @@
+/* 
+TODO: Build this. Make the specific files general like 'user.component.mjs|.html|.css
+*/
+● config
++---● app
+|   +--● 
+|
+|
+|
+|
+|
+|
+|
+|
+|
