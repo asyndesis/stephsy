@@ -25,7 +25,7 @@ let userModel = new mongoose.Schema({
     validate: {
       validator: function(v) {
         var re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/
-        return re.test(String(v).toLowerCase())
+        return re.test(String(v))
       },
       message: props => `Password must contain at least 1 lowercase letter, 1 uppercase letter, mone number, one special character and be eight characters or longer.`
     },
