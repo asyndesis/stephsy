@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-
+import { AuthGuardService } from './_services';
 const routes: Routes = [
   /*
   {
@@ -11,9 +11,13 @@ const routes: Routes = [
   },
   */
   { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'register', loadChildren: './register/register.module#RegisterPageModule' },
-  { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
- //s { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardPageModule' }
+  { path: 'register', loadChildren: './_components/register/register.module#RegisterPageModule' },
+  { path: 'login', loadChildren: './_components/login/login.module#LoginPageModule' },
+  {
+    path: 'dashboard',
+    loadChildren: './_components/dashboard/dashboard.module#DashboardPageModule',
+    canActivate: [AuthGuardService],
+  }
 ];
 @NgModule({
   imports: [
