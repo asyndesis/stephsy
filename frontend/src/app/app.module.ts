@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 
 
 //proprietary
-import { AppMaterialModule } from './app-material.module';
+//import { AppMaterialModule } from './app-material.module';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
@@ -24,7 +24,7 @@ import { SignUpComponent } from './user/sign-up/sign-up.component';
     FormsModule,
     BrowserModule,
     AppRoutingModule,
-    AppMaterialModule
+    //AppMaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]
