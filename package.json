@@ -8,6 +8,7 @@
     "install-frontend":"cd frontend && npm install",
     "server":"cd server && npm start",
     "frontend":"cd frontend && ng serve",
+    "ionic":"cd ionic && ionic serve",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
