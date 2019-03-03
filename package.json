@@ -5,11 +5,9 @@
   "main": "index.js",
   "scripts": {
     "install-server":"cd server && npm install",
-    "install-frontend":"cd frontend && npm install",
+    "install-ionic":"cd ionic && npm install",
     "server":"cd server && npm start",
-    "frontend":"cd frontend && ng serve",
-    "ionic":"cd ionic && ionic serve",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "ionic":"cd ionic && ionic serve"
   },
   "repository": {
     "type": "git",
