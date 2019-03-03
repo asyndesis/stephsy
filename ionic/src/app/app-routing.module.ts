@@ -2,7 +2,18 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  { path: '', loadChildren: './tabs/tabs.module#TabsPageModule' }
+  /*
+  {
+    path: 'signup', component: UserComponent,
+    children: [{
+      path: '', component: SignUpComponent
+    }]
+  },
+  */
+  { path: '', loadChildren: './tabs/tabs.module#TabsPageModule' },
+  { path: 'register', loadChildren: './register/register.module#RegisterPageModule' },
+  { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
+  { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardPageModule' }
 ];
 @NgModule({
   imports: [
