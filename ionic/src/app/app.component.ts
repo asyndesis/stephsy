@@ -30,6 +30,7 @@ export class AppComponent {
         if(state) {
             this.router.navigate(['dashboard']);
         } else {
+            // We probably want this to redirect to the page they were trying to go to instead of login
             this.router.navigate(['login']);
         }
       });
