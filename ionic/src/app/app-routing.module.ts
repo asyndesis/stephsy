@@ -10,10 +10,10 @@ const routes: Routes = [
     }]
   },
   */
-  { path: '', loadChildren: './tabs/tabs.module#TabsPageModule' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'register', loadChildren: './register/register.module#RegisterPageModule' },
   { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
-  { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardPageModule' }
+ //s { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardPageModule' }
 ];
 @NgModule({
   imports: [

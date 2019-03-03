@@ -3,8 +3,9 @@
 - Make sure your in the root directory (stephsy folder)
 
 ###Prerequisites
-1. npm install -g ionic
-2. (install cordova)
+1. sudo npm install -g ionic
+2. sudo npm install -g @angular/cli
+3. sudo npm install -g cordova
 
 ###Install
 1. npm run install-server
