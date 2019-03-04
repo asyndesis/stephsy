@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { PasswordValidator } from '../../_validators/password.validator';
 import { UsernameValidator } from '../../_validators/username.validator';
 import validationMessages from '../../_validators/validation.messages';
+import { AuthenticationService } from 'src/app/_services';
 @Component({
   selector: 'app-register',
   templateUrl: './register.page.html',
@@ -14,7 +15,7 @@ export class RegisterPage implements OnInit {
   submitted = false;
   validation_messages = validationMessages;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder,private authService: AuthenticationService) {
     this.registerForm = this.formBuilder.group({
       username: new FormControl('', Validators.compose([
         UsernameValidator.validUsername,
@@ -47,5 +48,7 @@ export class RegisterPage implements OnInit {
 
   ngOnInit() {
   }
-
+  back(){
+    this.authService.logout();
+  }
 }
