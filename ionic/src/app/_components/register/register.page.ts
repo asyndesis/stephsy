@@ -30,13 +30,13 @@ export class RegisterPage implements OnInit {
       password: new FormControl('', Validators.compose([
         Validators.maxLength(25),
         Validators.minLength(8),
-        Validators.pattern('/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])/'),
+        Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/),
         Validators.required
       ])),
       confirmPassword: new FormControl('', Validators.compose([
         Validators.maxLength(25),
         Validators.minLength(8),
-        Validators.pattern('/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])/'),
+        Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/),
         Validators.required
       ])),
     }, (formGroup: FormGroup) => {

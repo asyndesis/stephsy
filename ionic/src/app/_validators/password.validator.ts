@@ -4,7 +4,7 @@ export class PasswordValidator {
 	static areEqual(formGroup: FormGroup) {
 		let val;
 		let valid = true;
-
+		console.log(formGroup);
 		for (let key in formGroup.controls) {
 			if (formGroup.controls.hasOwnProperty(key)) {
 				let control: FormControl = <FormControl>formGroup.controls[key];
