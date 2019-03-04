@@ -4,6 +4,7 @@ import { PasswordValidator } from '../../_validators/password.validator';
 import { UsernameValidator } from '../../_validators/username.validator';
 import validationMessages from '../../_validators/validation.messages';
 import { AuthenticationService } from 'src/app/_services';
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.page.html',
@@ -15,7 +16,10 @@ export class RegisterPage implements OnInit {
   submitted = false;
   validation_messages = validationMessages;
 
-  constructor(private formBuilder: FormBuilder,private authService: AuthenticationService) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private authService: AuthenticationService
+    ) {
     this.registerForm = this.formBuilder.group({
       username: new FormControl('', Validators.compose([
         UsernameValidator.validUsername,
@@ -40,9 +44,9 @@ export class RegisterPage implements OnInit {
         Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/),
         Validators.required
       ])),
-    }, (formGroup: FormGroup) => {
-      /* after validation? */
-      return PasswordValidator.areEqual(formGroup);
+    },{
+      /* Extra options */
+      validator: PasswordValidator.notEqual
     });
   }
 

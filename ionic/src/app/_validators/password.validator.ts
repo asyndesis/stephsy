@@ -1,28 +1,15 @@
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormGroup, AbstractControl } from '@angular/forms';
 
 export class PasswordValidator {
-	static areEqual(formGroup: FormGroup) {
-		let val;
-		let valid = true;
-		console.log(formGroup);
-		for (let key in formGroup.controls) {
-			if (formGroup.controls.hasOwnProperty(key)) {
-				let control: FormControl = <FormControl>formGroup.controls[key];
-				if (val === undefined) {
-					val = control.value
-				} else {
-					if (val !== control.value) {
-						valid = false;
-						break;
-					}
-				}
+	static notEqual(control: AbstractControl) {
+		 let password = control.get('password').value;
+
+		 let confirmPassword = control.get('confirmPassword').value;
+
+			if(password !== confirmPassword) {
+					control.get('confirmPassword').setErrors( {notEqual: true} );
+			} else {
+					return null
 			}
-		}
-		if (valid) {
-			return null;
-		}
-		return {
-			areEqual: true
-		}
 	}
 }

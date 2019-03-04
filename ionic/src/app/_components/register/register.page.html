@@ -18,12 +18,13 @@
         <ion-input type="text" formControlName="username" class="form-control" required></ion-input>
       </ion-item>
       <div class="validation-errors">
-        <ng-container *ngFor="let validation of validation_messages.username">
-          <ion-label color="danger" *ngIf="registerForm.get('username').hasError(validation.type) && (registerForm.get('username').dirty || registerForm.get('username').touched)">
-            {{ validation.message }}
-          </ion-label>
-        </ng-container>
-      </div>
+          <ng-container *ngFor="let validation of validation_messages.username">
+            <ion-label color="danger" *ngIf="registerForm.get('username').hasError(validation.type) && (registerForm.get('username').dirty || registerForm.get('username').touched)">
+              {{ validation.message }}
+            </ion-label>
+          </ng-container>
+        </div>
+  
 
       <ion-item>
         <ion-label position="floating" color="primary">Email</ion-label>
