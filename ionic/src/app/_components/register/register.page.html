@@ -6,4 +6,29 @@
 
 <ion-content padding>
 
+  <ion-list>
+
+
+        <input type="text" #nick="ngModel" [(ngModel)]="userService.selectedUser.nick" name="nick" placeholder="Nick Name" required [ngClass]="{'invalid-textbox' : signUpForm.submitted && !nick.valid }">
+
+
+    <ion-item >
+        <div *ngIf="signUpForm.submitted && !nick.valid">
+            <label class="validation-message">
+              This field is required.
+            </label>
+          </div>
+      <ion-label stacked>Nickname</ion-label>
+      <ion-input  type="text" #nick="ngModel" [(ngModel)]="userService.selectedUser.nick" name="nick" placeholder="Nick Name" required [ngClass]="{'invalid-textbox' : signUpForm.submitted && !nick.valid }">
+        
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Password</ion-label>
+      <ion-input type="password" [(ngModel)]="password"></ion-input>
+    </ion-item>
+
+  </ion-list>
+
 </ion-content>
