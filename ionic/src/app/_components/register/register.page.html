@@ -10,7 +10,7 @@
 </ion-header>
 
 <ion-content padding>
-  <form [formGroup]="registerForm">
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <ion-list>
 
       <ion-item>
@@ -18,12 +18,12 @@
         <ion-input type="text" formControlName="username" class="form-control" required></ion-input>
       </ion-item>
       <div class="validation-errors">
-          <ng-container *ngFor="let validation of validation_messages.username">
-            <ion-label color="danger" *ngIf="registerForm.get('username').hasError(validation.type) && (registerForm.get('username').dirty || registerForm.get('username').touched)">
-              {{ validation.message }}
-            </ion-label>
-          </ng-container>
-        </div>
+        <ng-container *ngFor="let validation of validation_messages.username">
+          <ion-label color="danger" *ngIf="registerForm.get('username').hasError(validation.type) && (registerForm.get('username').dirty || registerForm.get('username').touched)">
+            {{ validation.message }}
+          </ion-label>
+        </ng-container>
+      </div>
   
 
       <ion-item>
@@ -63,5 +63,6 @@
         </div>
 
     </ion-list>
+    <ion-button [disabled]="loading" expand="block" type="submit">Register</ion-button>
   </form>
 </ion-content>

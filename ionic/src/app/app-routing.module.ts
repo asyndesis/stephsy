@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { AuthGuardService } from './_services';
+import { AuthGuard } from './_guards';
 const routes: Routes = [
   /*
   {
@@ -16,8 +16,10 @@ const routes: Routes = [
   {
     path: 'dashboard',
     loadChildren: './_components/dashboard/dashboard.module#DashboardPageModule',
-    canActivate: [AuthGuardService],
-  }
+    canActivate: [AuthGuard],
+  },
+  // otherwise redirect to home
+  { path: '**', redirectTo: '' }
 ];
 @NgModule({
   imports: [

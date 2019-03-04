@@ -3,9 +3,13 @@ import bcrypt from 'bcryptjs'
 import tools from '../tools'
 
 let userModel = new mongoose.Schema({
-  nick: {
+  id: {
     type: String,
-    required: [true,'Nick name can\'t be empty'],
+    unique: true
+  },
+  username: {
+    type: String,
+    required: [true,'Username name can\'t be empty'],
     unique: true
   },
   email: {
@@ -30,7 +34,8 @@ let userModel = new mongoose.Schema({
       message: props => `Password must contain at least 1 lowercase letter, 1 uppercase letter, mone number, one special character and be eight characters or longer.`
     },
   },
-  saltSecret: String
+  saltSecret: String,
+  token: String
 });
 
 /* Middleware */
@@ -45,7 +50,14 @@ userModel.pre('save',function(next) {
 });
 userModel.post('save', function(err, payload, next) {
   if (err){
-    tools.burp('FgCyan','mongoose','Error creating new user','models.user')
+    switch (err.code){
+      case 11000:
+        tools.burp('FgCyan','mongoose','Duplicate key exists for user','models.user')
+        break;
+      default:
+        tools.burp('FgCyan','mongoose','Error creating new user','models.user')
+        break;
+    }
   }
   next()
 });

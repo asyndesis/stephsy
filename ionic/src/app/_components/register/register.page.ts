@@ -1,9 +1,12 @@
+import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService, UserService } from 'src/app/_services';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { first } from 'rxjs/operators';
 import { PasswordValidator } from '../../_validators/password.validator';
 import { UsernameValidator } from '../../_validators/username.validator';
 import validationMessages from '../../_validators/validation.messages';
-import { AuthenticationService } from 'src/app/_services';
+import { User } from 'src/app/_models';
 
 @Component({
   selector: 'app-register',
@@ -13,19 +16,28 @@ import { AuthenticationService } from 'src/app/_services';
 export class RegisterPage implements OnInit {
 
   registerForm: FormGroup;
+  newUser: User;
+  loading = false;
   submitted = false;
+  serverError = '';
+  returnUrl: string;
   validation_messages = validationMessages;
 
   constructor(
     private formBuilder: FormBuilder,
-    private authService: AuthenticationService
-    ) {
+    private route: ActivatedRoute,
+    private router: Router,
+    private authenticationService: AuthenticationService,
+    private userService: UserService
+    ) {}
+
+
+  ngOnInit() {
     this.registerForm = this.formBuilder.group({
       username: new FormControl('', Validators.compose([
         UsernameValidator.validUsername,
         Validators.maxLength(25),
         Validators.minLength(5),
-        Validators.pattern('^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]+$'),
         Validators.required
       ])),
       email: new FormControl('', Validators.compose([
@@ -48,11 +60,42 @@ export class RegisterPage implements OnInit {
       /* Extra options */
       validator: PasswordValidator.notEqual
     });
-  }
 
-  ngOnInit() {
+    // reset login status
+    this.authenticationService.logout();
+
+    // get return url from route parameters or default to '/'
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
   back(){
-    this.authService.logout();
+    return this.router.navigate([this.returnUrl]);
   }
+  // convenience getter for easy access to form fields
+  get f() { return this.registerForm.controls; }
+
+  onSubmit() {
+    this.submitted = true;
+    // stop here if form is invalid
+    if (this.registerForm.invalid) {
+      console.log('[form] invalid');
+        return;
+    }
+    this.loading = true;
+    this.newUser = {
+      username: this.f.username.value, 
+      password: this.f.password.value,
+      email: this.f.email.value
+    };
+    this.userService.register(this.newUser)
+        .pipe(first())
+        .subscribe(
+            data => {
+                this.router.navigate([this.returnUrl]);
+            },
+            error => {
+                this.serverError = error;
+                this.loading = false;
+            });
+}
+
 }
