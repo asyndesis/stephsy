@@ -7,6 +7,7 @@ import { PasswordValidator } from '../../_validators/password.validator';
 import { UsernameValidator } from '../../_validators/username.validator';
 import validationMessages from '../../_validators/validation.messages';
 import { User } from 'src/app/_models';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-register',
@@ -19,7 +20,6 @@ export class RegisterPage implements OnInit {
   newUser: User;
   loading = false;
   submitted = false;
-  serverError = '';
   returnUrl: string;
   validation_messages = validationMessages;
 
@@ -28,14 +28,14 @@ export class RegisterPage implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private authenticationService: AuthenticationService,
-    private userService: UserService
+    private userService: UserService,
+    public toastController: ToastController
     ) {}
 
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
       username: new FormControl('', Validators.compose([
-        UsernameValidator.validUsername,
         Validators.maxLength(25),
         Validators.minLength(5),
         Validators.required
@@ -86,16 +86,35 @@ export class RegisterPage implements OnInit {
       password: this.f.password.value,
       email: this.f.email.value
     };
-    this.userService.register(this.newUser)
-        .pipe(first())
-        .subscribe(
-            data => {
-                this.router.navigate([this.returnUrl]);
-            },
-            error => {
-                this.serverError = error;
-                this.loading = false;
-            });
+    this.userService
+    .register(this.newUser)
+    .pipe(first())
+    .subscribe(
+      async data => {
+        this.loading = false;
+        this.router.navigate([this.returnUrl]);
+        this.registerForm.reset();
+        const toast = await this.toastController.create({
+          message: 'Check your email.',
+          duration: 5000,
+          showCloseButton: true,
+          color: 'success',
+          closeButtonText: 'Okay!'
+        });
+        toast.present();
+      },
+      async error => {
+        this.loading = false;
+        const toast = await this.toastController.create({
+          color:'danger',
+          message: error,
+          duration: 5000,
+          showCloseButton: true,
+          closeButtonText: 'Okay!'
+        });
+        toast.present();
+      }
+    );
 }
 
 }

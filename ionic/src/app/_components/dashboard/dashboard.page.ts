@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from 'src/app/_services';
-
+import { AuthenticationService } from '../../_services';
+import { Router, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.page.html',
@@ -8,13 +8,18 @@ import { AuthenticationService } from 'src/app/_services';
 })
 export class DashboardPage implements OnInit {
 
-  constructor(private authService: AuthenticationService) { }
-
+  constructor(
+    private authenticationService: AuthenticationService,
+    private route: ActivatedRoute,
+    private router: Router
+    ) { }
+  returnUrl: string;
   ngOnInit() {
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
   logout(){
-    this.authService.logout();
+    this.authenticationService.logout();
+    return this.router.navigate([this.returnUrl]);
   }
-
 }

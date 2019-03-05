@@ -4,6 +4,7 @@ import { AuthenticationService } from 'src/app/_services';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import validationMessages from '../../_validators/validation.messages';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,6 @@ export class LoginPage implements OnInit {
   loginForm: FormGroup;
   loading = false;
   submitted = false;
-  serverError = '';
   returnUrl: string;
   validation_messages = validationMessages;
 
@@ -23,7 +23,8 @@ export class LoginPage implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    public toastController: ToastController
     ) {}
 
 
@@ -56,15 +57,24 @@ export class LoginPage implements OnInit {
     }
 
     this.loading = true;
+    // authentication service handles the login
     this.authenticationService.login(this.f.username.value, this.f.password.value)
         .pipe(first())
         .subscribe(
-            data => {
-                this.router.navigate([this.returnUrl]);
-            },
-            error => {
-                this.serverError = error;
+            async data => {
                 this.loading = false;
+                this.router.navigate(['/dashboard']);
+            },
+            async (error) => {
+              this.loading = false;
+              const toast = await this.toastController.create({
+                color: 'danger',
+                message: 'Invalid credentials.',
+                duration: 5000,
+                showCloseButton: true,
+                closeButtonText: 'Okay!',
+              });
+              toast.present();
             });
 }
 

@@ -1,6 +1,8 @@
 import mongoose from 'mongoose';
 import tools from '../tools';
 import uuid from 'node-uuid';
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
 
 const User = mongoose.model('User');
 let userController = {};
@@ -21,26 +23,37 @@ userController = {
       next()
     }).catch((error) => { 
       tools.burp('FgCyan','webserver','User could not be created.','controllers.user' )
-      res.send(error);
+      res.status('400').send(error);
       next()
     });
   },
   login: (req, res, next) => {
-    User.find({user: req.body.username}).then((payload) => {
-      if(!payload /*|| res.body.password != 'todo'*/) {
-        res.sendStatus(401);
+    User.findOne({username: req.body.username}).then((payload) => {
+      if(!payload) {
+        // if username does not exist
+        console.log('arf');
+        res.sendStatus('400');
         next()
       }else{
-        res.send({
-          username: payload.username,
-          token: jwt.sign({userID: payload.id}, 'todo-app-super-shared-secret', {expiresIn: '2h'})
+        bcrypt.compare(req.body.password, payload.password, function(err, bres) {
+          if(bres) {
+            // Passwords match
+            tools.burp('FgCyan','webserver','Auth token supplied to \''+payload.username+'\'','controllers.user' )
+            res.send({
+              username: payload.username,
+              token: jwt.sign({userID: payload.id}, 'todo-app-super-shared-secret', {expiresIn: '2h'})
+            });
+          } else {
+           // Passwords don't match
+           tools.burp('FgCyan','webserver','Invalid password for user: '+payload.username+'.','controllers.user' )
+           res.sendStatus('400');
+          } 
         });
-
-        tools.burp('FgCyan','webserver','Auth token supplied to \''+payload.username+'\'','controllers.user' )
+        
       }
     }).catch((error) => { 
       tools.burp('FgCyan','webserver','User could not log in.','controllers.user' )
-      res.send(error);
+      res.sendStatus('400');
       next()
     });
   }
