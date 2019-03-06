@@ -4,12 +4,14 @@ import path from 'path'
 let tools = {}
 
 tools.burp = (color,title,message,file) => {
+  var date = new Date();
+  var timeString = date.toISOString().substr(11, 8);
   if (file){
     file = ' -> '+file+' -> '
   }else{
     file = ' ';
   }
-  console.log('['+colors[color]+title+colors['Reset']+']'+file+message)
+  console.log(timeString+' ['+colors[color]+title+colors['Reset']+']'+file+message)
 }
 
 tools.isJson = (str) => {

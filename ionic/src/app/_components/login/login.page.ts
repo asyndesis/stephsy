@@ -39,7 +39,7 @@ export class LoginPage implements OnInit {
     });
 
     // reset login status
-    this.authenticationService.logout();
+    //this.authenticationService.logout();
 
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
@@ -66,10 +66,11 @@ export class LoginPage implements OnInit {
                 this.router.navigate(['/dashboard']);
             },
             async (error) => {
+              console.log(error);
               this.loading = false;
               const toast = await this.toastController.create({
                 color: 'danger',
-                message: 'Invalid credentials.',
+                message: error,
                 duration: 5000,
                 showCloseButton: true,
                 closeButtonText: 'Okay!',
