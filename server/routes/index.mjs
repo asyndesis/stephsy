@@ -5,8 +5,7 @@ import tools from '../tools/'
 
 const router = express.Router();
 
-
-// route middleware to verify a token
+/* Middleware */
 router.use(function(req, res, next) {
   /* Non-protected routes. This is hacky. I know */
   if (req.originalUrl == '/api/register' || req.originalUrl == '/api/login'){
@@ -25,7 +24,8 @@ router.use(function(req, res, next) {
         });
       } else {
         // if everything is good, save to request for use in other routes
-        req.decoded = decoded;
+        //req.decoded = decoded; //this contains some extra info that i might need later for security?
+        req.userID = decoded.userID;
         next();
       }
     });
@@ -40,8 +40,9 @@ router.use(function(req, res, next) {
   }
 });
 
+/* Routes */
 router.post('/login',userController.login)
 router.post('/register',userController.register)
-router.get('/profile',userController.profile)
+router.post('/editUser',userController.editUser)
 
 export {router}

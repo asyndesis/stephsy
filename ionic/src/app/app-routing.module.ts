@@ -2,24 +2,24 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './_guards';
 const routes: Routes = [
-  /*
-  {
-    path: 'signup', component: UserComponent,
-    children: [{
-      path: '', component: SignUpComponent
-    }]
-  },
-  */
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'register', loadChildren: './_components/register/register.module#RegisterPageModule' },
-  { path: 'login', loadChildren: './_components/login/login.module#LoginPageModule' },
-  {
-    path: 'dashboard',
+  // Child routes are located in _components/*
+  // ToDo: might want to rename them to pages folders, but we will see.
+  { path: '',
+    redirectTo: 'login',
+    pathMatch: 'full',
+    data:{title: 'Login'}},
+  { path: 'register',
+    loadChildren: './_components/register/register.module#RegisterPageModule',
+    data:{title: 'Register'}},
+  { path: 'login',
+    loadChildren: './_components/login/login.module#LoginPageModule',
+    data:{title: 'Login'}},
+  { path: 'dashboard',
     loadChildren: './_components/dashboard/dashboard.module#DashboardPageModule',
     canActivate: [AuthGuard],
-  },
+    data:{title: 'Dashboard'}},
   // otherwise redirect to home
-  { path: '**', redirectTo: '' }
+  { path: '**', redirectTo: '' },
 ];
 @NgModule({
   imports: [

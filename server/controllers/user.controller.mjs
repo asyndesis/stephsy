@@ -13,6 +13,7 @@ userController = {
     var user = new User();
   
     user.id = uuid.v1();
+    user.role = ['user'];
     user.username = req.body.username;
     user.email = req.body.email;
     user.password = req.body.password;
@@ -58,8 +59,11 @@ userController = {
     });
   },
 
-  profile: (req, res, next) => {
-    res.send(req.decoded.userID);
+  editUser: (req, res, next) => {
+    let currentUserId = req.userID;
+    
+
+    res.send();
   }
 }
 

@@ -11,8 +11,9 @@ import { IonicStorageModule } from '@ionic/storage';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
+import { MenuComponent } from './_components/dashboard/menu/menu.component';
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent,MenuComponent],
   entryComponents: [],
   imports: [
     BrowserModule, 

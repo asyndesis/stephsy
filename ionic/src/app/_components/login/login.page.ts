@@ -39,7 +39,7 @@ export class LoginPage implements OnInit {
     });
 
     // reset login status
-    //this.authenticationService.logout();
+    this.authenticationService.logout();
 
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
@@ -62,11 +62,12 @@ export class LoginPage implements OnInit {
         .pipe(first())
         .subscribe(
             async data => {
+                this.loginForm.reset();
                 this.loading = false;
                 this.router.navigate(['/dashboard']);
             },
             async (error) => {
-              console.log(error);
+              this.loginForm.reset();
               this.loading = false;
               const toast = await this.toastController.create({
                 color: 'danger',
