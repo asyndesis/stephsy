@@ -3,7 +3,7 @@ import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AuthenticationService } from './_services';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { User } from './_models';
 
 @Component({
@@ -19,21 +19,24 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private authenticationService: AuthenticationService,
-    private router: Router
+    private router: Router,
+    public route: ActivatedRoute
   ) {
-    this.initializeApp();
+
   }
 
-  initializeApp() {
+  ngOnInit() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
       this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     });
+
   }
 
   logout() {
     this.authenticationService.logout();
     this.router.navigate(['/login']);
   }
+  
 }

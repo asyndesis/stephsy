@@ -4,10 +4,10 @@
   "description": "A solution for group therapy schedules and payments",
   "main": "index.js",
   "scripts": {
-    "install-server":"cd server && npm install",
-    "install-ionic":"cd ionic && npm install",
-    "server":"cd server && npm start",
-    "ionic":"cd ionic && ionic serve"
+    "install-server": "cd server && npm install",
+    "install-ionic": "cd ionic && npm install",
+    "server": "cd server && npm start",
+    "ionic": "cd ionic && ionic serve"
   },
   "repository": {
     "type": "git",
@@ -18,5 +18,6 @@
   "bugs": {
     "url": "https://github.com/asyndesis/stephsy/issues"
   },
-  "homepage": "https://github.com/asyndesis/stephsy#readme"
+  "homepage": "https://github.com/asyndesis/stephsy#readme",
+  "dependencies": {}
 }

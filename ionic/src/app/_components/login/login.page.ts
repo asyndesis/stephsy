@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { first } from 'rxjs/operators';
 import validationMessages from '../../_validators/validation.messages';
 import { ToastController } from '@ionic/angular';
+import crypto from '../../_tools/md5';
 
 @Component({
   selector: 'app-login',
@@ -13,10 +14,12 @@ import { ToastController } from '@ionic/angular';
 })
 export class LoginPage implements OnInit {
 
+
   loginForm: FormGroup;
   loading = false;
   submitted = false;
   returnUrl: string;
+  profilePicture: any = "https://www.gravatar.com/avatar/";
   validation_messages = validationMessages;
 
   constructor(
@@ -27,10 +30,12 @@ export class LoginPage implements OnInit {
     public toastController: ToastController
     ) {}
 
-
+  emailChanged(){
+    this.profilePicture = "https://www.gravatar.com/avatar/" + crypto.md5((this.f.email.value || '').toLowerCase(), false, false);
+  }
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      username: new FormControl('', Validators.compose([
+      email: new FormControl('', Validators.compose([
         Validators.required
       ])),
       password: new FormControl('', Validators.compose([
@@ -58,7 +63,7 @@ export class LoginPage implements OnInit {
 
     this.loading = true;
     // authentication service handles the login
-    this.authenticationService.login(this.f.username.value, this.f.password.value)
+    this.authenticationService.login(this.f.email.value, this.f.password.value)
         .pipe(first())
         .subscribe(
             async data => {

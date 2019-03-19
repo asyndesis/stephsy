@@ -8,7 +8,8 @@ import { CommonModule } from '@angular/common';
 const routes: Routes = [
   {
     path: '',
-    component: RegisterPage
+    component: RegisterPage,
+    data:{title:'Register'}
   }
 ];
 
