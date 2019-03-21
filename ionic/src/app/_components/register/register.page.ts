@@ -8,6 +8,7 @@ import { UsernameValidator } from '../../_validators/username.validator';
 import validationMessages from '../../_validators/validation.messages';
 import { User } from 'src/app/_models';
 import { ToastController } from '@ionic/angular';
+import crypto from '../../_tools/md5';
 
 @Component({
   selector: 'app-register',
@@ -21,6 +22,7 @@ export class RegisterPage implements OnInit {
   loading = false;
   submitted = false;
   returnUrl: string;
+  profilePicture: any = "https://www.gravatar.com/avatar/";
   validation_messages = validationMessages;
 
   constructor(
@@ -71,7 +73,13 @@ export class RegisterPage implements OnInit {
     return this.router.navigate([this.returnUrl]);
   }
   // convenience getter for easy access to form fields
-  get f() { return this.registerForm.controls; }
+  get f() { 
+    return this.registerForm.controls;
+  }
+  // gravatar
+  emailChanged(){
+    this.profilePicture = "https://www.gravatar.com/avatar/" + crypto.md5((this.f.email.value || '').toLowerCase(), false, false);
+  }
 
   onSubmit() {
     this.submitted = true;

@@ -37,12 +37,25 @@ userController = {
         next();
       }else{
         bcrypt.compare(req.body.password, payload.password, function(err, bres) {
+          // Passwords match
           if(bres) {
-            // Passwords match
-            tools.burp('FgCyan','webserver','Auth token supplied to \''+payload.email+'\'','controllers.user' )
-            res.send({
-              email: payload.email,
-              token: jwt.sign({userID: payload.id}, process.env.jwtSecret, {expiresIn: '2h'})
+            let _token = jwt.sign({userID: payload.id}, process.env.jwtSecret, {expiresIn: '2h'});
+            // Update token in DB
+            User.findOneAndUpdate({
+              email: payload.email
+            },{
+              token: _token
+            // Send token to client
+            }).then((payload) => {
+              tools.burp('FgCyan','webserver','Auth token stored and supplied to \''+payload.email+'\'','controllers.user' )
+              res.send({
+                email: payload.email,
+                token: _token
+              });
+            }).catch((error) => { 
+              tools.burp('FgCyan','webserver','Token could not be stored for user.','controllers.user' );
+              res.status('400').send({message: 'Token could not be stored for user.'});
+              next();
             });
           } else {
            // Passwords don't match
@@ -59,9 +72,7 @@ userController = {
     });
   },
 
-  editUser: (req, res, next) => {
-    let currentUserId = req.userID;
-    
+  getCurrentUser: (req, res, next) => {
 
     res.send();
   }

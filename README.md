@@ -11,7 +11,7 @@
 1. npm run install-server
 2. npm run install-ionic
 
-###Run
+###Local Run
 1. npm run server 
 2. (new terminal)
 3. npm run ionic

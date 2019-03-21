@@ -43,6 +43,6 @@ router.use(function(req, res, next) {
 /* Routes */
 router.post('/login',userController.login)
 router.post('/register',userController.register)
-router.post('/editUser',userController.editUser)
+router.get('/getCurrentUser',userController.getCurrentUser)
 
 export {router}

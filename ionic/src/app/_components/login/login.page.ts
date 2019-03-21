@@ -33,6 +33,7 @@ export class LoginPage implements OnInit {
   emailChanged(){
     this.profilePicture = "https://www.gravatar.com/avatar/" + crypto.md5((this.f.email.value || '').toLowerCase(), false, false);
   }
+  
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
       email: new FormControl('', Validators.compose([
