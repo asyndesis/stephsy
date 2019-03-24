@@ -12,11 +12,11 @@ router.use(function(req, res, next) {
     return next();
   }
   // check header or url parameters or post parameters for token
-  var token = req.body.token || req.query.token || req.headers['x-access-token'];
+  req.token = tools.revealToken(req);
   // decode token
-  if (token) {
+  if (req.token) {
     // verifies secret and checks exp
-    jwt.verify(token, process.env.jwtSecret, function(err, decoded) {
+    jwt.verify(req.token, process.env.jwtSecret, function(err, decoded) {
       if (err) {
         tools.burp('FgCyan','webserver','User has invalid token.','routes' )
         return res.status(403).send({ 

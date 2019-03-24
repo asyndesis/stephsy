@@ -73,8 +73,13 @@ userController = {
   },
 
   getCurrentUser: (req, res, next) => {
-
-    res.send();
+    User.findOne({token: req.token, id: req.userID}).then((payload) => {
+      res.status('201').send(payload);
+    }).catch((error) => { 
+      tools.burp('FgCyan','webserver','Token not found.','controllers.user' )
+      res.status('400').send({message: 'Could not get user data.'});
+    });
+     
   }
 }
 

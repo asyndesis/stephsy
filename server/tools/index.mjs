@@ -23,5 +23,13 @@ tools.isJson = (str) => {
   return true;
 }
 
+tools.revealToken = (req) => {
+  var token = req.body.token || req.query.token || req.headers['x-access-token'];
+  if (req.headers.authorization.startsWith("Bearer ")){
+    token = req.headers.authorization.substring(7, req.headers.authorization.length);
+  }
+  return token;
+}
+
 export default tools
 

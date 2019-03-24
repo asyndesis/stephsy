@@ -9,14 +9,14 @@ export class UserService {
     constructor(private http: HttpClient) { }
 
     getAll() {
-      return this.http.get<User[]>(`/users`);
+      return this.http.get<User[]>(`http://localhost:3000/api/users`);
     }
 
     getCurrentUser(){
-      return this.http.get<User>(`/api/getCurrentUser`);
+      return this.http.get<User>(`http://localhost:3000/api/getCurrentUser`);
     }
 
     register(user: User){
-      return this.http.post<User>(`/api/register`, user);
+      return this.http.post<User>(`http://localhost:3000/api/register`, user);
     }
 } 
