@@ -1,6 +1,6 @@
 # stephsy
 
-- Make sure your in the root directory (stephsy folder)
+- Make sure you're in the root directory (stephsy folder)
 
 ### Prerequisites
 1. npm install -g @angular/cli
