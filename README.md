@@ -2,16 +2,16 @@
 
 - Make sure your in the root directory (stephsy folder)
 
-###Prerequisites
+### Prerequisites
 1. npm install -g @angular/cli
 
-###Install
+### Install
 1. npm run install-server
 2. npm run install-frontend
 
-###Run
-3. npm run server 
-4. (new terminal) npm run frontend
+### Run
+1. npm run server 
+2. (new terminal) npm run frontend
 
-###View
+### View
 5. http://localhost:4200
