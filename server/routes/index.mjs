@@ -44,5 +44,6 @@ router.use(function(req, res, next) {
 router.post('/login',userController.login)
 router.post('/register',userController.register)
 router.get('/getCurrentUser',userController.getCurrentUser)
+router.post('/updateCurrentUser',userController.updateCurrentUser)
 
 export {router}

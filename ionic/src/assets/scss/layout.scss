@@ -1,3 +1,13 @@
 ion-avatar{
   margin: auto;
+  margin-top:20px;
 }
+ion-content{
+  --background: linear-gradient(180deg, #{$colorLightOrange} 0%, #{$colorLightBlue} 100%);
+  ion-card{
+    --background:#FFF;
+  }
+}
+
+
+

@@ -1,58 +1,80 @@
 <ion-content padding>
-  <ion-avatar>
-    <img [src]="profilePicture">
-  </ion-avatar>
-  <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
-    <ion-list>
-      <ion-item>
-        <ion-label position="floating" color="primary">Email</ion-label>
-        <ion-input type="text" formControlName="email" class="form-control" [value]="currentUser.email" disabled></ion-input>
-      </ion-item>
-      <div class="validation-errors">
-        <ng-container *ngFor="let validation of validation_messages.email">
-          <ion-label color="danger" *ngIf="profileForm.get('email').hasError(validation.type) && (profileForm.get('email').dirty || profileForm.get('email').touched)">
-            {{ validation.message }}
-          </ion-label>
-        </ng-container>
-      </div>
+  <ion-grid>
+    <ion-row>
+      <ion-col size-md="6" offset-md="3">
+        <ion-card>
+          <ion-card-content>
+            <div class="ion-text-center">
+              <ion-avatar>
+                <img [src]="profilePicture">
+              </ion-avatar>
+            </div>
+            <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+              <ion-list>
+                <ion-item>
+                  <ion-label position="floating" color="primary">Email</ion-label>
+                  <ion-input type="text" formControlName="email" class="form-control" [value]="currentUser.email"
+                    ></ion-input>
+                </ion-item>
+                <div class="validation-errors">
+                  <ng-container *ngFor="let validation of validation_messages.email">
+                    <ion-label color="danger"
+                      *ngIf="profileForm.get('email').hasError(validation.type) && (profileForm.get('email').dirty || profileForm.get('email').touched)">
+                      {{ validation.message }}
+                    </ion-label>
+                  </ng-container>
+                </div>
 
-      <ion-item>
-          <ion-label position="floating" color="primary">Username</ion-label>
-          <ion-input type="text" formControlName="username" class="form-control" required [value]="currentUser.username"></ion-input>
-        </ion-item>
-        <div class="validation-errors">
-          <ng-container *ngFor="let validation of validation_messages.username">
-            <ion-label color="danger" *ngIf="profileForm.get('username').hasError(validation.type) && (profileForm.get('username').dirty || profileForm.get('username').touched)">
-              {{ validation.message }}
-            </ion-label>
-          </ng-container>
-        </div>
+                <ion-item>
+                  <ion-label position="floating" color="primary">Username</ion-label>
+                  <ion-input type="text" formControlName="username" class="form-control" required
+                    [value]="currentUser.username"></ion-input>
+                </ion-item>
+                <div class="validation-errors">
+                  <ng-container *ngFor="let validation of validation_messages.username">
+                    <ion-label color="danger"
+                      *ngIf="profileForm.get('username').hasError(validation.type) && (profileForm.get('username').dirty || profileForm.get('username').touched)">
+                      {{ validation.message }}
+                    </ion-label>
+                  </ng-container>
+                </div>
 
-        <ion-item>
-            <ion-label position="floating" color="primary">Password</ion-label>
-            <ion-input type="password" formControlName="password" class="form-control" required></ion-input>
-          </ion-item>
-          <div class="validation-errors">
-            <ng-container *ngFor="let validation of validation_messages.password">
-              <ion-label color="danger" *ngIf="profileForm.get('password').hasError(validation.type) && (profileForm.get('password').dirty || profileForm.get('username').touched)">
-                {{ validation.message }}
-              </ion-label>
-            </ng-container>
-          </div>
+                <ion-item>
+                  <ion-label position="floating" color="primary">Password</ion-label>
+                  <ion-input type="password" formControlName="password" class="form-control" required></ion-input>
+                </ion-item>
+                <div class="validation-errors">
+                  <ng-container *ngFor="let validation of validation_messages.password">
+                    <ion-label color="danger"
+                      *ngIf="profileForm.get('password').hasError(validation.type) && (profileForm.get('password').dirty || profileForm.get('username').touched)">
+                      {{ validation.message }}
+                    </ion-label>
+                  </ng-container>
+                </div>
 
-          <ion-item>
-            <ion-label position="floating" color="primary">Confirm Password</ion-label>
-            <ion-input type="password" formControlName="confirmPassword" class="form-control" required></ion-input>
-          </ion-item>
-          <div class="validation-errors">
-            <ng-container *ngFor="let validation of validation_messages.confirmPassword">
-              <ion-label color="danger" *ngIf="profileForm.get('confirmPassword').hasError(validation.type) && (profileForm.get('confirmPassword').dirty || profileForm.get('username').touched)">
-                {{ validation.message }}
-              </ion-label>
-            </ng-container>
-          </div>
+                <ion-item>
+                  <ion-label position="floating" color="primary">Confirm Password</ion-label>
+                  <ion-input type="password" formControlName="confirmPassword" class="form-control" required>
+                  </ion-input>
+                </ion-item>
+                <div class="validation-errors">
+                  <ng-container *ngFor="let validation of validation_messages.confirmPassword">
+                    <ion-label color="danger"
+                      *ngIf="profileForm.get('confirmPassword').hasError(validation.type) && (profileForm.get('confirmPassword').dirty || profileForm.get('username').touched)">
+                      {{ validation.message }}
+                    </ion-label>
+                  </ng-container>
+                </div>
 
-    </ion-list>
-  </form>
-
+              </ion-list>
+              <br />
+              <ion-button [disabled]="loading" expand="block" type="submit">Update</ion-button>
+              <ion-button color="secondary" routerLink="/dashboard" routerDirection="back" [disabled]="loading" expand="block" type="button">Cancel
+              </ion-button>
+            </form>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

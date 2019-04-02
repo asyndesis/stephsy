@@ -16,6 +16,10 @@ export class UserService {
       return this.http.get<User>(`http://localhost:3000/api/getCurrentUser`);
     }
 
+    updateCurrentUser(user: User){
+      return this.http.post<User>(`http://localhost:3000/api/updateCurrentUser`, user);
+    }
+
     register(user: User){
       return this.http.post<User>(`http://localhost:3000/api/register`, user);
     }

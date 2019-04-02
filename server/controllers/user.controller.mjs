@@ -74,13 +74,30 @@ userController = {
 
   getCurrentUser: (req, res, next) => {
     User.findOne({token: req.token, id: req.userID}).then((payload) => {
-      res.status('201').send(payload);
+      var user = new User();
+      user.username = payload.username;
+      user.email = payload.email;
+      tools.burp('FgCyan','webserver',user.username+' is viewing profile.','controllers.user' )
+      res.status('201').send(user);
     }).catch((error) => { 
       tools.burp('FgCyan','webserver','Token not found.','controllers.user' )
       res.status('400').send({message: 'Could not get user data.'});
     });
-     
+  },
+
+  updateCurrentUser: (req, res, next) => {
+    User.findOne({token: req.token, id: req.userID}).then((payload) => {
+      var user = new User();
+      user.username = payload.username;
+      user.email = payload.email;
+      tools.burp('FgCyan','webserver',user.username+' is viewing profile.','controllers.user' )
+      res.status('201').send(user);
+    }).catch((error) => { 
+      tools.burp('FgCyan','webserver','Token not found.','controllers.user' )
+      res.status('400').send({message: 'Could not get user data.'});
+    });
   }
+
 }
 
 

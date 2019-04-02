@@ -17,6 +17,9 @@ import { first } from 'rxjs/operators';
 export class ProfilePage implements OnInit {
   profilePicture:string = "https://www.gravatar.com/avatar/";
   currentUser:User;
+  newUser: User;
+  loading = false;
+  submitted = false;
   profileForm: FormGroup;
   validation_messages = validationMessages;
 
@@ -24,7 +27,9 @@ export class ProfilePage implements OnInit {
     private authenticationService: AuthenticationService,
     private formBuilder: FormBuilder,
     private userService: UserService,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private route: ActivatedRoute,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -32,11 +37,11 @@ export class ProfilePage implements OnInit {
     this.profilePicture = "https://www.gravatar.com/avatar/" + crypto.md5((this.currentUser.email || '').toLowerCase(), false, false);
 
     this.profileForm = this.formBuilder.group({
-      username: new FormControl('', Validators.compose([
+      username: new FormControl({value: ''}, Validators.compose([
         Validators.maxLength(25),
         Validators.minLength(5),
       ])),
-      email: new FormControl('', Validators.compose([
+      email: new FormControl({value: '', disabled: true}, Validators.compose([
         Validators.email,
       ])),
       password: new FormControl('', Validators.compose([
@@ -54,19 +59,23 @@ export class ProfilePage implements OnInit {
       validator: PasswordValidator.notEqual
     });
 
+    this.pumpForm();
+  }
+  // convenience getter for easy access to form fields
+  get f() { 
+    return this.profileForm.controls;
+  }
+  /* pump from server.getCurrentUser */
+  pumpForm(){
     this.userService
-    .getCurrentUser()
-    .pipe(first())
-    .subscribe(
+        .getCurrentUser()
+        .pipe(first())
+        .subscribe(
       async data => {
-        const toast = await this.toastController.create({
-          message: 'Check your email.',
-          duration: 5000,
-          showCloseButton: true,
-          color: 'success',
-          closeButtonText: 'Okay!'
-        });
-        toast.present();
+        this.profileForm.reset();
+        this.currentUser = data;
+        this.f.username.setValue(this.currentUser.username);
+        this.f.email.setValue(this.currentUser.email);
       },
       async error => {
         const toast = await this.toastController.create({
@@ -79,8 +88,54 @@ export class ProfilePage implements OnInit {
         toast.present();
       }
     );
-
-
   }
+  // gravatar
+  emailChanged(){
+    this.profilePicture = "https://www.gravatar.com/avatar/" + crypto.md5((this.f.email.value || '').toLowerCase(), false, false);
+  }
+  // send off
+  onSubmit() {
+    this.submitted = true;
+    // stop here if form is invalid
+    if (this.profileForm.invalid) {
+      console.log('[form] invalid');
+        return;
+    }
+    this.loading = true;
+    this.newUser = {
+      username: this.f.username.value, 
+      password: this.f.password.value,
+      email: this.f.email.value
+    };
+    this.userService
+    .updateCurrentUser(this.newUser)
+    .pipe(first())
+    .subscribe(
+      async data => {
+        this.loading = false;
+        this.pumpForm();
+        const toast = await this.toastController.create({
+          message: 'Profile updated.',
+          duration: 5000,
+          showCloseButton: true,
+          color: 'success',
+          closeButtonText: 'Okay!'
+        });
+        toast.present();
+      },
+      async error => {
+        this.loading = false;
+        this.pumpForm();
+        const toast = await this.toastController.create({
+          color:'danger',
+          message: error,
+          duration: 5000,
+          showCloseButton: true,
+          closeButtonText: 'Okay!'
+        });
+        toast.present();
+      }
+    );
+}
 
 }
