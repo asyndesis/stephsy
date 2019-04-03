@@ -8,7 +8,7 @@
               <img [src]="profilePicture">
             </ion-avatar>
             <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-              <ion-list>
+              <ion-item-group>
 
                 <ion-item>
                   <ion-label position="floating" color="primary">Username</ion-label>
@@ -22,7 +22,6 @@
                     </ion-label>
                   </ng-container>
                 </div>
-
 
                 <ion-item>
                   <ion-label position="floating" color="primary">Email</ion-label>
@@ -65,7 +64,7 @@
                   </ng-container>
                 </div>
 
-              </ion-list>
+              </ion-item-group>
               <br />
               <ion-button [disabled]="loading" expand="block" type="submit">Register</ion-button>
               <ion-button color="secondary" (click)="back()" [disabled]="loading" expand="block" type="button">Cancel

@@ -5,7 +5,7 @@
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
           <ion-card>
             <ion-card-content>
-              <ion-list no-lines>
+              <ion-item-group>
                 <ion-avatar>
                   <img [src]="profilePicture">
                 </ion-avatar>
@@ -39,7 +39,7 @@
                 <ion-button [disabled]="loading" expand="block" type="submit">Login</ion-button>
                 <ion-button expand="block" color="secondary" routerLink="/register" routerDirection="forward">Register
                 </ion-button>
-              </ion-list>
+              </ion-item-group>
             </ion-card-content>
           </ion-card>
         </form>

@@ -10,25 +10,26 @@
               </ion-avatar>
             </div>
             <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
-              <ion-list>
+              <ion-item-group>
                 <ion-item>
                   <ion-label position="floating" color="primary">Email</ion-label>
-                  <ion-input type="text" formControlName="email" class="form-control" [value]="currentUser.email"
-                    ></ion-input>
+                  <ion-input type="text" formControlName="email" class="form-control" [value]="currentUser.email">
+                  </ion-input>
+                  <div class="validation-errors">
+                    <ng-container *ngFor="let validation of validation_messages.email">
+                      <ion-label color="danger"
+                        *ngIf="profileForm.get('email').hasError(validation.type) && (profileForm.get('email').dirty || profileForm.get('email').touched)">
+                        {{ validation.message }}
+                      </ion-label>
+                    </ng-container>
+                  </div>
                 </ion-item>
-                <div class="validation-errors">
-                  <ng-container *ngFor="let validation of validation_messages.email">
-                    <ion-label color="danger"
-                      *ngIf="profileForm.get('email').hasError(validation.type) && (profileForm.get('email').dirty || profileForm.get('email').touched)">
-                      {{ validation.message }}
-                    </ion-label>
-                  </ng-container>
-                </div>
 
                 <ion-item>
                   <ion-label position="floating" color="primary">Username</ion-label>
                   <ion-input type="text" formControlName="username" class="form-control" required
-                    [value]="currentUser.username"></ion-input>
+                    [value]="currentUser.username">
+                  </ion-input>
                 </ion-item>
                 <div class="validation-errors">
                   <ng-container *ngFor="let validation of validation_messages.username">
@@ -39,8 +40,13 @@
                   </ng-container>
                 </div>
 
+                <ion-item-divider>
+                  <ion-label>Change Password</ion-label>
+                  <ion-toggle color="primary" slot="end"></ion-toggle>
+                </ion-item-divider>
+
                 <ion-item>
-                  <ion-label position="floating" color="primary">Password</ion-label>
+                  <ion-label position="stacked" color="primary">Password</ion-label>
                   <ion-input type="password" formControlName="password" class="form-control" required></ion-input>
                 </ion-item>
                 <div class="validation-errors">
@@ -66,10 +72,11 @@
                   </ng-container>
                 </div>
 
-              </ion-list>
+              </ion-item-group>
               <br />
               <ion-button [disabled]="loading" expand="block" type="submit">Update</ion-button>
-              <ion-button color="secondary" routerLink="/dashboard" routerDirection="back" [disabled]="loading" expand="block" type="button">Cancel
+              <ion-button color="secondary" routerLink="/dashboard" routerDirection="back" [disabled]="loading"
+                expand="block" type="button">Cancel
               </ion-button>
             </form>
           </ion-card-content>

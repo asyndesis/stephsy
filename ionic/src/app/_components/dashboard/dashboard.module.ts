@@ -10,12 +10,12 @@ const routes: Routes = [
   {
     path: '',
     component: DashboardPage,
-    data:{title:'Dashboard'}
+    data:{title:'Dashboard', level:1}
   },
   {
     path: 'profile',
     component: ProfilePage,
-    data:{title:'Profile'}
+    data:{title:'Profile', level:2}
   }
 ];
 
