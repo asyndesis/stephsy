@@ -12,6 +12,9 @@ let userModel = new mongoose.Schema({
     required: [true,'Username name can\'t be empty'],
     unique: true
   },
+  birthday: {
+    type: String,
+  },
   email: {
     type: String,
     required: [true,'Email can\'t be empty'],

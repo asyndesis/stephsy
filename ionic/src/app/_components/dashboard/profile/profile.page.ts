@@ -28,8 +28,6 @@ export class ProfilePage implements OnInit {
     private formBuilder: FormBuilder,
     private userService: UserService,
     private toastController: ToastController,
-    private route: ActivatedRoute,
-    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -44,19 +42,11 @@ export class ProfilePage implements OnInit {
       email: new FormControl({value: '', disabled: true}, Validators.compose([
         Validators.email,
       ])),
-      password: new FormControl('', Validators.compose([
-        Validators.maxLength(25),
-        Validators.minLength(8),
-        Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/),
-      ])),
-      confirmPassword: new FormControl('', Validators.compose([
-        Validators.maxLength(25),
-        Validators.minLength(8),
-        Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/),
+      birthday: new FormControl({value: ''}, Validators.compose([
+
       ])),
     },{
       /* Extra options */
-      validator: PasswordValidator.notEqual
     });
 
     this.pumpForm();
@@ -76,6 +66,7 @@ export class ProfilePage implements OnInit {
         this.currentUser = data;
         this.f.username.setValue(this.currentUser.username);
         this.f.email.setValue(this.currentUser.email);
+        this.f.birthday.setValue(this.currentUser.birthday);
       },
       async error => {
         const toast = await this.toastController.create({
@@ -104,7 +95,7 @@ export class ProfilePage implements OnInit {
     this.loading = true;
     this.newUser = {
       username: this.f.username.value, 
-      password: this.f.password.value,
+      birthday: this.f.birthday.value,
       email: this.f.email.value
     };
     this.userService

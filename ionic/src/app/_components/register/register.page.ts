@@ -69,9 +69,6 @@ export class RegisterPage implements OnInit {
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
-  back(){
-    return this.router.navigate([this.returnUrl]);
-  }
   // convenience getter for easy access to form fields
   get f() { 
     return this.registerForm.controls;
@@ -80,7 +77,6 @@ export class RegisterPage implements OnInit {
   emailChanged(){
     this.profilePicture = "https://www.gravatar.com/avatar/" + crypto.md5((this.f.email.value || '').toLowerCase(), false, false);
   }
-
   onSubmit() {
     this.submitted = true;
     // stop here if form is invalid

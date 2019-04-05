@@ -77,6 +77,7 @@ userController = {
       var user = new User();
       user.username = payload.username;
       user.email = payload.email;
+      user.birthday = payload.birthday;
       tools.burp('FgCyan','webserver',user.username+' is viewing profile.','controllers.user' )
       res.status('201').send(user);
     }).catch((error) => { 
@@ -86,17 +87,24 @@ userController = {
   },
 
   updateCurrentUser: (req, res, next) => {
-    User.findOne({token: req.token, id: req.userID}).then((payload) => {
+    
+    User.findOneAndUpdate({token: req.token, id: req.userID},{
+      username: req.body.username,
+      birthday: req.body.birthday
+    }).then((payload) => {
+
       var user = new User();
-      user.username = payload.username;
       user.email = payload.email;
-      tools.burp('FgCyan','webserver',user.username+' is viewing profile.','controllers.user' )
+      user.username = payload.username;
+      user.birthday = payload.birthday;
+
+      tools.burp('FgCyan','webserver',req.body.username+' updated their profile.','controllers.user' )
       res.status('201').send(user);
     }).catch((error) => { 
       tools.burp('FgCyan','webserver','Token not found.','controllers.user' )
       res.status('400').send({message: 'Could not get user data.'});
     });
-  }
+  },
 
 }
 
