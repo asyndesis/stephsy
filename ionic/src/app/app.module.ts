@@ -11,6 +11,8 @@ import { IonicStorageModule } from '@ionic/storage';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
+import { Camera } from '@ionic-native/camera/ngx';
+import { CameraPreview } from '@ionic-native/camera-preview/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -34,6 +36,8 @@ import { JwtInterceptor, ErrorInterceptor } from './_helpers';
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    Camera,
+    CameraPreview
   ],
   bootstrap: [AppComponent]
 })

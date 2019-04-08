@@ -7,6 +7,7 @@ import validationMessages from '../../../_validators/validation.messages';
 import { User } from 'src/app/_models';
 import { ToastController } from '@ionic/angular';
 import crypto from '../../../_tools/md5';
+import zodiac from '../../../_tools/zodiac';
 import { first } from 'rxjs/operators';
 
 @Component({
@@ -16,6 +17,7 @@ import { first } from 'rxjs/operators';
 })
 export class ProfilePage implements OnInit {
   profilePicture:string = "https://www.gravatar.com/avatar/";
+  profileBirthday:string = '';
   currentUser:User;
   newUser: User;
   loading = false;
@@ -33,6 +35,7 @@ export class ProfilePage implements OnInit {
   ngOnInit() {
     this.currentUser = this.authenticationService.currentUserValue;
     this.profilePicture = "https://www.gravatar.com/avatar/" + crypto.md5((this.currentUser.email || '').toLowerCase(), false, false);
+    this.profileBirthday = '';
 
     this.profileForm = this.formBuilder.group({
       username: new FormControl({value: ''}, Validators.compose([
@@ -67,6 +70,7 @@ export class ProfilePage implements OnInit {
         this.f.username.setValue(this.currentUser.username);
         this.f.email.setValue(this.currentUser.email);
         this.f.birthday.setValue(this.currentUser.birthday);
+        this.birthdayChanged();
       },
       async error => {
         const toast = await this.toastController.create({
@@ -83,6 +87,14 @@ export class ProfilePage implements OnInit {
   // gravatar
   emailChanged(){
     this.profilePicture = "https://www.gravatar.com/avatar/" + crypto.md5((this.f.email.value || '').toLowerCase(), false, false);
+  }
+  birthdayChanged(){
+    if (this.f.birthday.value){
+      let birthday = this.f.birthday.value;
+      let month = birthday.substring(5,7);
+      let day = birthday.substring(8,10);
+      this.profileBirthday = zodiac.getSign(day,month)['symbol'];
+    }
   }
   // send off
   onSubmit() {

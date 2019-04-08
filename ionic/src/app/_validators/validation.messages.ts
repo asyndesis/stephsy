@@ -13,14 +13,14 @@ let validationMessages = {
   'password': [
     { type: 'minlength', message: 'must be at least 8 characters long.' },
     { type: 'maxlength', message: 'cannot be more than 25 characters long.' },
-    { type: 'pattern', message: 'needs at least 1 lowercase letter, 1 uppercase letter, 1 number, and 1 special character.' },
+    { type: 'pattern', message: 'needs 1 lowercase letter, 1 capital letter, 1 number, and 1 special character.' },
     { type: 'required', message: 'is required.' },
     { type: 'notEqual', message: '\'s must match.'}
   ],
   'confirmPassword': [
     { type: 'minlength', message: 'must be at least 8 characters long.' },
     { type: 'maxlength', message: 'cannot be more than 25 characters long.' },
-    { type: 'pattern', message: 'needs at least 1 lowercase letter, 1 uppercase letter, 1 number, and 1 special character.' },
+    { type: 'pattern', message: 'needs 1 lowercase letter, 1 capital letter, 1 number, and 1 special character.' },
     { type: 'required', message: 'is required.' },
     { type: 'notEqual', message: '\'s must match.'}
   ]

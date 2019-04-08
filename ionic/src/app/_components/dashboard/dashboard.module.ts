@@ -5,6 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { DashboardPage } from './dashboard.page';
 import { ProfilePage } from './profile/profile.page';
+import { ChatPage } from './chat/chat.page';
 
 const routes: Routes = [
   {
@@ -16,6 +17,11 @@ const routes: Routes = [
     path: 'profile',
     component: ProfilePage,
     data:{title:'Profile', level:2}
+  },
+  {
+    path: 'chat',
+    component: ChatPage,
+    data:{title:'Chat', level:2}
   }
 ];
 
@@ -27,6 +33,6 @@ const routes: Routes = [
     ReactiveFormsModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [DashboardPage, ProfilePage]
+  declarations: [DashboardPage, ProfilePage, ChatPage]
 })
 export class DashboardPageModule {}

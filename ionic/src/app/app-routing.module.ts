@@ -18,6 +18,9 @@ const routes: Routes = [
     loadChildren: './_components/dashboard/dashboard.module#DashboardPageModule',
     canActivate: [AuthGuard],
     data:{title: 'Dashboard', level:1}},
+  { path: 'test', loadChildren: './_components/test/test.module#TestPageModule',
+    data:{title: 'Test Area', level:1}
+  },
   // otherwise redirect to home
   { path: '**', redirectTo: '' },
 ];

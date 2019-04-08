@@ -52,7 +52,7 @@
 
                 <ion-item>
                     <ion-thumbnail slot="start">
-                      <ion-icon name="contact" size="form"></ion-icon>
+                      <ion-text class="zodiac">{{ profileBirthday }}</ion-text>
                     </ion-thumbnail>
                     <ion-label position="floating">
                       <ion-text>
@@ -67,7 +67,7 @@
                         </ng-container>
                       </ng-container>
                     </ion-label>
-                    <ion-datetime formControlName="birthday" display-format="MMM DD, YYYY" class="form-control"></ion-datetime>
+                    <ion-datetime formControlName="birthday" display-format="MMM DD, YYYY" class="form-control" (ionChange)="birthdayChanged()"></ion-datetime>
                   </ion-item>
 
               </ion-list>

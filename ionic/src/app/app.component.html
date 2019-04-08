@@ -2,7 +2,7 @@
 
   <ion-header>
     <ion-toolbar>
-      <ion-menu-button *ngIf="currentUser" slot="start"></ion-menu-button>
+      <ion-menu-button slot="start"></ion-menu-button>
       <ion-title>{{page.title}}</ion-title>
     </ion-toolbar>
   </ion-header>
@@ -13,7 +13,7 @@
         <ion-title>Menu</ion-title>
       </ion-toolbar>
     </ion-header>
-    <ion-content id="menu">
+    <ion-content id="menu-auth" *ngIf="currentUser">
       <ion-list>
         <ion-item [routerLink]="['/dashboard']" routerDirection="forward">
           <ion-icon name="home" slot="start"></ion-icon>
@@ -23,12 +23,28 @@
           <ion-icon name="contact" slot="start"></ion-icon>
           <ion-label>My Profile</ion-label>
         </ion-item>
+        <ion-item [routerLink]="['/dashboard/chat']" routerDirection="forward">
+          <ion-icon name="chatboxes" slot="start"></ion-icon>
+          <ion-label>Chat</ion-label>
+        </ion-item>
         <ion-item (click)="logout()" [routerLink]="['/login']">
           <ion-icon name="lock" slot="start"></ion-icon>
           <ion-label>Log Out</ion-label>
         </ion-item>
       </ion-list>
     </ion-content>
+    <ion-content id="menu" *ngIf="!currentUser">
+        <ion-list>
+            <ion-item [routerLink]="['/login']" routerDirection="forward">
+              <ion-icon name="home" slot="start"></ion-icon>
+              <ion-label>Login</ion-label>
+            </ion-item>
+          <ion-item [routerLink]="['/register']" routerDirection="forward">
+            <ion-icon name="home" slot="start"></ion-icon>
+            <ion-label>Register</ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-content>
   </ion-menu>
 
   <ion-content id="main">

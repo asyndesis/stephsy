@@ -26,8 +26,13 @@
     ion-label{
       color: var(--ion-color-primary);
     }
-    ion-item ion-thumbnail{
-      border-radius:20px;
+    ion-thumbnail{
+      img{
+        border-radius:20px;
+      }
+      .zodiac{
+        font-size:46px;
+      }
     }
   }
 
