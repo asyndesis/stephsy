@@ -7,7 +7,8 @@
     "i-server": "cd server && npm install",
     "i-ionic": "cd ionic && npm install",
     "server": "cd server && npm start",
-    "ionic": "cd ionic && ionic serve"
+    "ionic": "cd ionic && ionic serve",
+    "cordova": "cd ionic && ionic cordova run browser"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,6 @@
   },
   "homepage": "https://github.com/asyndesis/stephsy#readme",
   "dependencies": {
-    "moistdads": "file:server"
+    "stephsydb": "file:server"
   }
 }

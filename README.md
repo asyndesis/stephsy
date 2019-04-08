@@ -2,6 +2,8 @@
 
 - Make sure your in the root directory (stephsy folder)
 
+##General
+
 ###Prerequisites
 1. sudo npm install -g ionic
 2. sudo npm install -g @angular/cli
@@ -19,3 +21,10 @@
 
 ###View
 5. http://localhost:4200
+
+
+##Builds
+
+###ios (osx)
+sudo gem install cocoapods
+
