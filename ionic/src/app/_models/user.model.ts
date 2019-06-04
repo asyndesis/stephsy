@@ -3,7 +3,7 @@ export interface User {
   password?: string;
   email: string;
   birthday?: string;
-  role?: string;
+  roles?: Array<string>;
   token?: string;
   id?: string;
 }

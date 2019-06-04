@@ -11,7 +11,7 @@ const routes: Routes = [
   {
     path: '',
     component: DashboardPage,
-    data:{title:'Dashboard', level:1}
+    data:{title:'Dashboard', level:2}
   },
   {
     path: 'profile',

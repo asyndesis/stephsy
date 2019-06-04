@@ -33,6 +33,7 @@ export class ProfilePage implements OnInit {
   ) { }
 
   ngOnInit() {
+
     this.currentUser = this.authenticationService.currentUserValue;
     this.profilePicture = "https://www.gravatar.com/avatar/" + crypto.md5((this.currentUser.email || '').toLowerCase(), false, false);
     this.profileBirthday = '';

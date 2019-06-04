@@ -4,6 +4,7 @@ import { AuthGuard } from './_guards';
 const routes: Routes = [
   // Child routes are located in _components/*
   // ToDo: might want to rename them to pages folders, but we will see.
+  // level is used so that we can grab the data properly for breadcrumbs
   { path: '',
     redirectTo: 'login',
     pathMatch: 'full',
@@ -18,11 +19,15 @@ const routes: Routes = [
     loadChildren: './_components/dashboard/dashboard.module#DashboardPageModule',
     canActivate: [AuthGuard],
     data:{title: 'Dashboard', level:1}},
+  { path: 'admin', loadChildren: './_components/admin/admin.module#AdminPageModule',
+    canActivate: [AuthGuard],
+    data:{title: 'Admin Area', level:1}
+  },
   { path: 'test', loadChildren: './_components/test/test.module#TestPageModule',
     data:{title: 'Test Area', level:1}
   },
   // otherwise redirect to home
-  { path: '**', redirectTo: '' },
+  { path: '**', redirectTo: '' }
 ];
 @NgModule({
   imports: [

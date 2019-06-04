@@ -9,15 +9,14 @@ let userController = {};
 
 userController = {
 
+  /* Unprotected Endponts */
   register: (req, res, next) => {
     var user = new User();
-  
     user.id = uuid.v1();
     user.role = ['user'];
     user.username = req.body.username;
     user.email = req.body.email;
     user.password = req.body.password;
-    
     user.save().then((payload) => {
       tools.burp('FgCyan','webserver','A new user with email \''+payload.email+'\' has been created','controllers.user' )
       res.status('201').send(payload);
@@ -63,7 +62,6 @@ userController = {
            res.status('400').send({message: 'Invalid credentials.'});
           } 
         });
-        
       }
     }).catch((error) => { 
       tools.burp('FgCyan','webserver','Email not found.','controllers.user' )
@@ -72,6 +70,7 @@ userController = {
     });
   },
 
+  /* Auth Protected Endponts */
   getCurrentUser: (req, res, next) => {
     User.findOne({token: req.token, id: req.userID}).then((payload) => {
       var user = new User();
@@ -85,19 +84,15 @@ userController = {
       res.status('400').send({message: 'Could not get user data.'});
     });
   },
-
   updateCurrentUser: (req, res, next) => {
-    
     User.findOneAndUpdate({token: req.token, id: req.userID},{
       username: req.body.username,
       birthday: req.body.birthday
     }).then((payload) => {
-
       var user = new User();
       user.email = payload.email;
       user.username = payload.username;
       user.birthday = payload.birthday;
-
       tools.burp('FgCyan','webserver',req.body.username+' updated their profile.','controllers.user' )
       res.status('201').send(user);
     }).catch((error) => { 
@@ -105,7 +100,6 @@ userController = {
       res.status('400').send({message: 'Could not get user data.'});
     });
   },
-
 }
 
 

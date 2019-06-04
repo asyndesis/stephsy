@@ -8,8 +8,8 @@ import { User } from '../_models';
 export class UserService {
     constructor(private http: HttpClient) { }
 
-    getAll() {
-      return this.http.get<User[]>(`http://localhost:3000/api/users`);
+    getUsers() {
+      return this.http.get<User>(`http://localhost:3000/api/admin/getUsers`);
     }
 
     getCurrentUser(){
