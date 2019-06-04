@@ -2,16 +2,27 @@
 
 - Make sure you're in the root directory (stephsy folder)
 
-### Prerequisites
-1. npm install -g @angular/cli
+###Prerequisites
+1. sudo npm install -g ionic
+2. sudo npm install -g @angular/cli
+3. sudo npm install -g cordova
+4. 🎁 (install mongodb)
 
-### Install
-1. npm run install-server
-2. npm run install-frontend
+###Install
+1. npm run i-server
+2. npm run i-ionic
 
-### Run
+###Local Run
 1. npm run server 
-2. (new terminal) npm run frontend
+2. 📟 (new terminal)
+3. npm run ionic
 
-### View
-5. http://localhost:4200
+###View
+5. http://localhost:8100
+
+
+##Builds
+
+###ios (osx)
+sudo gem install cocoapods
+

@@ -10,4 +10,3 @@ database.connect(process.env.mongoDatabaseUri)
 webEngines.startWebServer(process.env.webServerPort)
 webEngines.startSocketServer(process.env.webServerPort)
 
-// Routing

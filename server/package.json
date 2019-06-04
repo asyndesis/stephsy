@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "node --experimental-modules app.mjs",
+    "start": "nodemon -r esm app.mjs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -13,8 +13,12 @@
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "cors": "^2.8.5",
+    "esm": "^3.2.25",
     "express": "^4.16.4",
+    "jsonwebtoken": "^8.5.0",
     "mongoose": "^5.4.14",
+    "node-uuid": "^1.4.8",
+    "nodemon": "^1.18.10",
     "socket.io": "^2.2.0"
   },
   "devDependencies": {}

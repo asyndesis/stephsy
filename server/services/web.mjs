@@ -29,17 +29,14 @@ webEngines.startWebServer = (webServerPort) => {
     });
   });
 
-  webServer.use(function (err, req, res, next) {
-    console.log('arf');
-    next();
-  })
   webServer.use(cors())
   webServer.use('/api',router)
-  /* i don't know what this does*/
+  /* What does res.io do? Sockets? */
   /* webServer.use(function(req, res, next){ 
     res.io = io
     next()
   }) */
+
   webServer.listen(webServerPort,(req, cltSocket, head) => {
     tools.burp('FgGreen','webserver','default connection open to ' + webServerPort,thisFileName);
   });

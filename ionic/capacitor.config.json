@@ -1,0 +1,6 @@
+{
+  "appId": "com.stephsy.app",
+  "appName": "stephsy",
+  "bundledWebRuntime": false,
+  "webDir": "www"
+}
