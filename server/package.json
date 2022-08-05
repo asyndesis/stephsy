@@ -16,7 +16,7 @@
     "esm": "^3.2.25",
     "express": "^4.16.4",
     "jsonwebtoken": "^8.5.0",
-    "mongoose": "^5.4.14",
+    "mongoose": "^5.7.5",
     "node-uuid": "^1.4.8",
     "nodemon": "^1.18.10",
     "socket.io": "^2.2.0"
